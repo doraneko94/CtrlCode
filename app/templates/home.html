@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.9/theme/dracula.min.css">
+</head>
+<body>
+    <div class="home-container">
+        <header class="home-header">
+            <h1>ユーザ名：{{ current_user.username | e }}</h1>
+            <p>レーティング：<strong> {{ current_user.rating | int }} </strong></p>
+            <a href="/logout" class="btn btn-logout">Logout</a>
+        </header>
+    </div>
+</body>

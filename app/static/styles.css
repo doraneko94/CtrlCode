@@ -1,0 +1,97 @@
+/* 共通 */
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+h2 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: #333333;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    color: #666666;
+}
+
+.btn {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    color: #ffffff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-transform: uppercase;
+    margin-top: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+/* home.html */
+
+.home_container {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px;
+    margin: 2rem auto;
+    font-family: Arial, sans-serif;
+}
+
+.home_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.home-header h1 {
+    font-size: 1.5rem;
+    color: #333333;
+}
+
+.home-header p {
+    font-size: 1rem;
+    padding: 1rem;
+    color: #666666;
+}
+
+.home-header .btn-logout {
+    margin-left: auto;
+}
+
+.btn-logout {
+    background-color: #dc3545;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 0.3rem 0.75rem;
+    font-size: 0.9rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: inline-block;
+    text-align: center;
+    white-space: nowrap;
+    width: auto;
+}
+
+.btn-logout:hover {
+    background-color: #c82333;
+}
