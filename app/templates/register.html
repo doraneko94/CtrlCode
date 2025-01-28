@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="register-container">
+        <h1>Create Your Account</h1>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="register-error-message">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <form method="POST" action="/register" class="register-form">
+            <!-- CSRFトークンを非表示フィールドとして挿入 -->
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    placeholder="Enter a username"
+                    pattern="[a-zA-Z0-9_]{3,20}"
+                    title="Username must be 3-20 characters long and contain only letters, numbers, and underscores."
+                    required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Enter an Email"
+                    required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Enter a password"
+                    minlength="8"
+                    maxlength="32"
+                    title="Password must be 8-32 characters long."
+                    required>
+            </div>
+            <button type="submit" class="btn">Create Account</button>
+        </form>
+        <p class="login-link">Already have an account> <a href="/">Login here</a>.</p>
+    </div>
+</body>
+</html>

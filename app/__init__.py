@@ -29,8 +29,8 @@ else:
 
 app.config["SQLALCHEMY_DATABASE_URI"] = f'sqlite:///{os.path.join(os.getcwd(), "database.db")}'
 
+app.register_blueprint(main)
 app.register_blueprint(home_bp)
-app.register_blueprint(index_bp)
 
 mail = Mail(app)
 db = SQLAlchemy(app)
