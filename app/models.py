@@ -1,7 +1,7 @@
 from app import db
 from datetime import datetime
 from flask_login import UserMixin
-from .consts import INITIAL_RATING
+from .consts import INITIAL_RATING, PLAY_LIMIT_FREE
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -14,3 +14,4 @@ class User(UserMixin, db.Model):
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
     played_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
     play_count = db.Column(db.Integer, nullable=False, default=0)
+    play_limit = db.Column(db.Integer, nullable=False, default=PLAY_LIMIT_FREE)
