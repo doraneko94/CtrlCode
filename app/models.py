@@ -12,3 +12,5 @@ class User(UserMixin, db.Model):
     is_confirmed = db.Column(db.Boolean, default=False)
     code_is_valid = db.Column(db.Boolean, default=True)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
+    played_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
+    play_count = db.Column(db.Integer, nullable=False, default=0)
