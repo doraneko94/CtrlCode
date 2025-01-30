@@ -8,7 +8,7 @@ from wtforms.validators import DataRequired, Email, EqualTo, Regexp, Length
 from app import db, mail
 from app.models import User
 from app.utils import confirm_token, generate_confirmation_token
-from routes import main
+from app.routes import main
 
 register_bp = Blueprint("register", __name__)
 

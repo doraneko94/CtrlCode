@@ -1,10 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>アカウント新規登録</title>
     <link rel="stylesheet" href="/static/styles.css">
+    <script>
+        async function checkAvailability(field, value) {
+            if (value.trim() === "") return;
+
+            const response = await fetch("/check-availability", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ field: field, value: value })
+            });
+
+            const data = await response.json();
+            const feedback = document.getElementById(`${field}-feedback`);
+
+            if (data.available) {
+                feedback.textContent = `${field.charAt(0).toUpperCase() + field.slice(1)} is available.`;
+                feedback.style.color = "green";
+            } else {
+                feedback.textContent = data.message;
+                feedback.style.color = "red";
+            }
+        }
+    </script>
 </head>
 <body>
     <div class="register-container">
@@ -17,42 +39,59 @@
             {% endif %}
         {% endwith %}
         <form method="POST" action="/register" class="register-form">
-            <!-- CSRFトークンを非表示フィールドとして挿入 -->
-            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            {{ form.hidden_tag() }}
             
             <div class="form-group">
-                <label for="username">Username</label>
-                <input
-                    type="text"
-                    id="username"
-                    name="username"
-                    placeholder="Enter a username"
-                    pattern="[a-zA-Z0-9_]{3,20}"
-                    title="Username must be 3-20 characters long and contain only letters, numbers, and underscores."
-                    required>
+                {{ form.username.label }}
+                {{ form.username(oninput="checkAvailability('username', this.value)") }}
+                <div id="username-feedback" class="register-feedback"></div>
+                {% for error in form.username.errors %}
+                    <span class="register-error">{{ error }}</span>
+                {% endfor %}
             </div>
+
+            <br>
+
             <div class="form-group">
-                <label for="email">Email</label>
-                <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    placeholder="Enter an Email"
-                    required>
+                {{ form.email.label }}
+                {{ form.email(oninput="checkAvailability('email', this.value)") }}
+                <div id="email-feedback" class="register-feedback"></div>
+                {% for error in form.email.errors %}
+                    <span class="register-error">{{ error }}</span>
+                {% endfor %}
             </div>
+
             <div class="form-group">
-                <label for="password">Password</label>
-                <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    placeholder="Enter a password"
-                    minlength="8"
-                    maxlength="32"
-                    title="Password must be 8-32 characters long."
-                    required>
+                {{ form.confirm_email.label }}
+                {{ form.confirm_email() }}
+                {% for error in form.confirm_email.errors %}
+                    <span class="register-error">{{ error }}</span>
+                {% endfor %}
             </div>
-            <button type="submit" class="btn">Create Account</button>
+
+            <br>
+
+            <div class="form-group">
+                {{ form.password.label }}
+                {{ form.password() }}
+                {% for error in form.password.errors %}
+                    <span class="register-error">{{ error }}</span>
+                {% endfor %}
+            </div>
+
+            <div class="form-group">
+                {{ form.confirm_password.label }}
+                {{ form.confirm_password() }}
+                {% for error in form.confirm_password.errors %}
+                    <span class="register-error">{{ error }}</span>
+                {% endfor %}
+            </div>
+
+            <br>
+
+            <div>
+                {{ form.submit(class="btn") }}
+            </div>
         </form>
         <p class="login-link">Already have an account> <a href="/">Login here</a>.</p>
     </div>

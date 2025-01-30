@@ -2,8 +2,8 @@ from flask import Flask
 from flask_mail import Mail
 from flask_socketio import SocketIO
 from flask_sqlalchemy import SQLAlchemy
+from flask_wtf import CSRFProtect
 import os, sys
-from .routes import *
 
 app = Flask(__name__)
 for env in ["SECRET_KEY", "MAIL_PASSWORD", "MAIL_USERNAME", "MAIL_SERVER"]:
@@ -29,9 +29,13 @@ else:
 
 app.config["SQLALCHEMY_DATABASE_URI"] = f'sqlite:///{os.path.join(os.getcwd(), "database.db")}'
 
-app.register_blueprint(main)
-app.register_blueprint(home_bp)
-
 mail = Mail(app)
 db = SQLAlchemy(app)
 socketio = SocketIO(app, cors_allowed_origins="*")
+CSRFProtect(app)
+
+from app.routes import *
+
+app.register_blueprint(main)
+app.register_blueprint(home_bp)
+app.register_blueprint(register_bp)

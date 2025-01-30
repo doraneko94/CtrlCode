@@ -43,6 +43,16 @@ label {
     background-color: #0056b3;
 }
 
+/* register.html */
+
+.register-feedback {
+    font-size: 0.9em;
+}
+
+.register-error {
+    color: red;
+}
+
 /* home.html */
 
 .home_container {
